@@ -5,7 +5,7 @@ From Raw Data -> Business Insights -> Automation
 
 * [Project Overview](#project-overview)
 * [Project Objectives](#project-objectives)
-* [Tools & Technologies Used](#tools--technology-used)
+* [Tools & Technologies Used](#tools--technologies-used)
 * [Project Workflow](#project-workflow)
 * [Excel Dashboard](#excel-dashboard)
 * [Key Insights & Results](#key-insights--results)
@@ -150,22 +150,20 @@ st.write("This web app predicts whether a transaction is **Fraudulent** or **Leg
 st.header("Enter Transaction Details")
 
 # Input fields
-credit_card_number = st.text_input("Credit Card Number", max_chars=16, 
-                                   placeholder="1234 5678 9012 3456")
-if credit_card_number:
-    cc_clean = credit_card_number.replace(" ", "")
-    
-    if not cc_clean.isdigit():
-        st.error("Please enter only digits")
-    else:
-        st.success("Card Format looks good")
-        cc_numeric = int(cc_clean)
-amount = st.number_input("Transaction Amountd($)", min_value=0.0, value=0.00)
+credit_card_number = st.text_input("Credit Card Number", placeholder="1234567812345678")
+cc_numeric = None
+if credit_card_number.isdigit():
+    cc_numeric = int(credit_card_number)
+    masked = "**** **** **** " + credit_card_number[-4:]
+    st.info(f"Card entered: {masked}")
+else:
+    st.warning("Please enter digits only")
+amount = st.number_input("Transaction Amount ($)", min_value=0.0, value=0.00)
 time = st.number_input("Transaction Time (hours)", min_value=0, max_value=23)
-is_night_transaction = st.number_input("Transaction by Night", min_value=0, max_value=1)
+is_night_transaction = 1 if st.checkbox("Transaction by Night") else 0
 
-# Create Dataframe with same structure as training data
-sample_data = pd.DataFrame([[credit_card_number, amount, time, is_night_transaction]], 
+# Create Dataframe with same structure as training data (with numeric cc_num)
+sample_data = pd.DataFrame([[cc_numeric, amount, time, is_night_transaction]], 
                            columns=['cc_num', 'amt', 'trans_time_hrs', 'trans_time_is_night'])
 
 # Scale input data
@@ -182,9 +180,9 @@ if st.button("Predict Transaction"):
         st.success("Legitimate Transaction.")
         
 st.markdown("---")
-st.caption("Developed by Okafor Gift Chukwudi - IT Industrial Training Project on Data Analytics & Machine Learning.")
+st.caption("Developed by Okafor Gift Chukwudi - IT (Industrial Training) Project on Data Analytics & Machine Learning.")
 ```
-<img width="747" height="767" alt="screenshot-1762633770035" src="https://github.com/user-attachments/assets/5ecfb998-bf1f-4472-90a0-cb7dea19f850" />
+<img width="426" height="358" alt="image" src="https://github.com/user-attachments/assets/9f5b68db-636b-43f2-92ec-0b6fcf726fad" />
 
 ### Excel Dashboard
 The Excel Dashboard includes the following visuals:
@@ -195,7 +193,7 @@ The Excel Dashboard includes the following visuals:
 * 💰⏲️Transaction amount vs time.
 * 🌃Night/Weekend transaction by class.
 
-<img width="960" height="504" alt="credit card fraud insight dashboard" src="https://github.com/user-attachments/assets/46981d55-e86b-4c98-8f19-683bf23511e8" />
+<img width="757" height="374" alt="Credit Card Fraud Insight Dashboard" src="https://github.com/user-attachments/assets/ed18cce8-fec2-4635-9cbe-9ff7aee4cca1" />
 
 ### Key Insights & Results
 * The dataset was highly imbalanced, with fraudulent transactions representing 1.05% of total records.
