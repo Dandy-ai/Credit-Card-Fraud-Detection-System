@@ -182,7 +182,8 @@ if st.button("Predict Transaction"):
 st.markdown("---")
 st.caption("Developed by Okafor Gift Chukwudi - IT (Industrial Training) Project on Data Analytics & Machine Learning.")
 ```
-<img width="426" height="358" alt="image" src="https://github.com/user-attachments/assets/9f5b68db-636b-43f2-92ec-0b6fcf726fad" />
+
+[Try Live Demo Here](https://credit-card-fraud-detection-system-demo.streamlit.app/)
 
 ### Excel Dashboard
 The Excel Dashboard includes the following visuals:
